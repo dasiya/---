@@ -1,0 +1,74 @@
+#-*- coding:utf-8 -*-
+bc = input('请输入百川报价（万）：')
+baojia1 = input('请输入竞标1公司报价（万）：')
+baojia2 = input('请输入竞标2公司报价（万）：')
+baojia3 = input('请输入竞标3公司报价（万）：')
+baojia4 = input('请输入竞标4公司报价（万）：')
+hengan = input('请输入竞标恒安嘉新公司报价（万）：')
+peibiao1 = input('请输入恒安陪标公司1报价（万）：')
+peibiao2 = input('请输入恒安陪标公司2报价（万）：')
+
+a=float(bc)
+b=float(baojia1)
+c=float(baojia2)
+d=float(baojia3)
+e=float(baojia4)
+f=float(hengan)
+h=float(peibiao1)
+g=float(peibiao2)
+
+
+p=(a+b+c+d+e+f+h+g)/8
+pmin=0.7*p
+
+# 报价
+offerList = [a,b,c,d,e,f,h,g]
+
+list = [a,b,c,d,e,f,h,g]
+list.append(pmin)
+# 冒泡排序方法
+def bubble_sort(L):
+    length = len(L)
+    for i in range(0, length):
+        for j in range(i + 1, length):
+            if L[i] > L[j]:
+                L[i], L[j] = L[j], L[i]
+    return L
+# 排序后的
+newList = bubble_sort(list)
+# 有效pmin
+for index,item in enumerate(newList):
+	if item == pmin:
+		effectivePmin = newList[index+1]
+# 获取公司名称方法
+def get_company(n):
+	if n == 0:
+		name = '百川'
+	elif n == 1:
+		name = '竞标公司1'
+	elif n == 2:
+		name = '竞标公司2'
+	elif n == 3:
+		name = '竞标公司3'
+	elif n == 4:
+		name = '竞标公司4'
+	elif n == 5:
+		name = '恒安嘉新公司'
+	elif n == 6:
+		name = '恒安陪标公司1'
+	elif n == 7:
+		name = '恒安陪标公司2'
+	return name
+
+s=75
+print(offerList)
+for index,item in enumerate(offerList):
+	if item < pmin:
+		print(get_company(index),'分数无效')
+	elif pmin < item <= effectivePmin:
+		print(get_company(index), '： 75分')
+	elif item > effectivePmin:
+		sx=s-((item-effectivePmin)/effectivePmin)*s
+		score = round(sx,2)
+		print(get_company(index), '：', score , '分')
+
